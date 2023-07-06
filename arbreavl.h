@@ -146,6 +146,19 @@ bool ArbreAVL<T>::contient(const T& element) const
 }
 
 template <class T>
+const T* ArbreAVL<T>::rechercher(Noeud* noeud, const T& element) const{
+    if (noeud == nullptr){
+        return nullptr;
+    } else if (element == noeud->contenu){
+        return &(noeud->contenu);
+    } else if (element < noeud->contenu){
+        return rechercher(noeud->gauche, element);
+    } else {
+        return rechercher(noeud->droite, element);
+    }
+}
+
+template <class T>
 void ArbreAVL<T>::inserer(const T& element)
 {
     inserer(racine, element);
@@ -273,7 +286,8 @@ void ArbreAVL<T>::copier(const Noeud* source, Noeud*& noeud) const
         noeud = new Noeud(source->contenu);
         copier(source->gauche, noeud->gauche);
         copier(source->droite, noeud->droite);
-    }}
+    }
+}
 
 template <class T>
 int  ArbreAVL<T>::hauteur() const{
